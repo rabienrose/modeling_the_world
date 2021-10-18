@@ -1,0 +1,151 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://addons/web_sprite/WSprite.gd" type="Script" id=1]
+[ext_resource path="res://font/NotoSansSC-Regular.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://icon/EM_141.png" type="Texture" id=3]
+[ext_resource path="res://icon/EM_136.png" type="Texture" id=4]
+[ext_resource path="res://ui_video_item.gd" type="Script" id=5]
+[ext_resource path="res://res/chinese_font.tres" type="Theme" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 2 )
+
+[node name="video_item" type="Panel"]
+margin_left = 0.594604
+margin_right = 500.595
+margin_bottom = 165.0
+rect_min_size = Vector2( 500, 165 )
+mouse_filter = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="."]
+margin_left = 266.0
+margin_top = 13.0
+margin_right = 471.0
+margin_bottom = 45.0
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "漫步东京"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="country" type="Label" parent="."]
+margin_left = 265.0
+margin_top = 72.0
+margin_right = 348.0
+margin_bottom = 96.0
+mouse_filter = 1
+theme = ExtResource( 6 )
+text = "日本"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="upload_date" type="Label" parent="."]
+margin_left = 267.1
+margin_top = 52.6115
+margin_right = 347.1
+margin_bottom = 66.6115
+rect_pivot_offset = Vector2( 77.9768, 13.4919 )
+mouse_filter = 1
+text = "21/09/10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="download_info" type="Label" parent="."]
+margin_left = 267.1
+margin_top = 128.611
+margin_right = 347.1
+margin_bottom = 142.611
+rect_pivot_offset = Vector2( 77.9768, 13.4919 )
+mouse_filter = 1
+text = "13% 567K/s"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="duration" type="Label" parent="."]
+margin_left = 352.498
+margin_top = 53.4983
+margin_right = 387.498
+margin_bottom = 67.4983
+rect_pivot_offset = Vector2( 77.9768, 13.4919 )
+mouse_filter = 1
+text = "1:60"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="file_size" type="Label" parent="."]
+margin_left = 410.01
+margin_top = 52.7491
+margin_right = 470.01
+margin_bottom = 66.7491
+rect_pivot_offset = Vector2( 77.9768, 13.4919 )
+mouse_filter = 1
+text = "1.3G"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="location" type="Label" parent="."]
+margin_left = 266.737
+margin_top = 93.473
+margin_right = 346.737
+margin_bottom = 117.473
+mouse_filter = 1
+theme = ExtResource( 6 )
+text = "新宿"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rm_download" type="TextureButton" parent="."]
+margin_left = 422.926
+margin_top = 122.562
+margin_right = 454.926
+margin_bottom = 154.562
+rect_scale = Vector2( 0.8, 0.8 )
+mouse_filter = 1
+texture_normal = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="watched" type="TextureButton" parent="."]
+visible = false
+margin_left = 457.055
+margin_top = 122.562
+margin_right = 489.055
+margin_bottom = 154.562
+rect_scale = Vector2( 0.8, 0.8 )
+mouse_filter = 1
+texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cover" type="TextureRect" parent="."]
+margin_left = 12.0
+margin_top = 16.0
+margin_right = 652.0
+margin_bottom = 376.0
+rect_scale = Vector2( 0.36, 0.36 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+type = 1
+autoLoad = true
+
+[connection signal="gui_input" from="duration" to="." method="_on_duration_gui_input"]
+[connection signal="gui_input" from="file_size" to="." method="_on_duration_gui_input"]
+[connection signal="button_down" from="rm_download" to="." method="_on_rm_download_button_down"]
+[connection signal="gui_input" from="cover" to="." method="_on_cover_gui_input"]

@@ -20,7 +20,27 @@ app = Flask(__name__)
 
 @app.route('/query_video_list', methods=['GET'])
 def query_video_list():
-    pass
+    db =myclient["model_world"]
+    video_col=db["videos"]
+    video_infos=[]
+    for x in video_col.find({}):
+        if "status" in x and x["status"]=="done":
+            pass
+        else:
+            continue
+        video_info={}
+        video_info["title"]=x["title"]
+        video_info["upload_date"]=x["upload_date"]
+        video_info["id"]=x["id"]
+        video_info["country"]=x["country"]
+        video_info["location"]=x["location"]
+        video_info["duration"]=x["duration"]
+        video_info["file_size"]=x["file_size"]
+        video_info["play_pos"]=0
+        video_info["played"]=0
+        video_info["collected"]=0        
+        video_infos.append(video_info)
+    return json.dumps(video_infos)
 
 if __name__ == '__main__':
     global myclient

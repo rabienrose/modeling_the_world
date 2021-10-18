@@ -1,3 +1,5 @@
+.import
+binary
 config.py
 config_world.py
 # Byte-compiled / optimized / DLL files

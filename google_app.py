@@ -14,6 +14,7 @@ import threading
 import time
 from threading import Thread, Lock
 import os
+import urllib.request
 
 mutex = Lock()
 
@@ -50,23 +51,23 @@ def update_download_list():
             video_id = download_list[0]
             cur_video_id=video_id
             ydl_opts = {
-                'format': '22',
+                'format': '247',
                 'logger': MyLogger(),
                 'progress_hooks': [my_hook],
-                'outtmpl': "temp.mp4"
+                'outtmpl': "temp.webm"
             }
-            if os.path.exists("temp.mp4.part"):
-                os.remove("temp.mp4.part")
+            if os.path.exists("temp.webm.part"):
+                os.remove("temp.webm.part")
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                 global progress_update_step
                 progress_update_step=0
                 ydl.extract_info('https://www.youtube.com/watch?v='+video_id,download=True)
-                bucket.put_object_from_file("video/"+video_id+"/main.mp4","temp.mp4",progress_callback=percentage)
+                bucket.put_object_from_file("video/"+video_id+"/main.webm","temp.webm",progress_callback=percentage)
                 db =myclient["model_world"]
                 video_col=db["videos"]  
                 progress_update_step=0
                 video_col.update_one({"id":video_id},{"$set":{"status":"done"}})
-                os.remove("temp.mp4")
+                os.remove("temp.webm")
                 with mutex:
                     download_list.remove(video_id)
         else:
@@ -120,7 +121,6 @@ def new_google_video():
         video_info["upload_date"]=result["upload_date"]
         video_info["uploader"]=result["uploader"]
         video_info["uploader_id"]=result["uploader_id"]
-        video_info["uploader_url"]=result["uploader_url"]
         video_info["view_count"]=result["view_count"]
         video_info["webpage_url"]=result["webpage_url"]
         video_info["id"]=result["id"]
@@ -154,6 +154,26 @@ def test_mongodb():
         print(x)
     return 'test_mongodb'
 
+
+
+@app.route('/test_dl', methods=['GET'])
+def test_dl():
+    video_id = request.values.get("video_id")
+    with youtube_dl.YoutubeDL({}) as ydl:
+        result = ydl.extract_info('https://www.youtube.com/watch?v='+video_id,download=False)
+        pp.pprint(result)
+    return 'test_dl'
+
+def reporthook(a, b, c):
+    cul_time=time.time()-s_time
+
+@app.route('/test_request', methods=['GET'])
+def test_request():
+    global s_time
+    s_time=time.time()
+    url="https://r1---sn-ibj-i3bs.googlevideo.com/videoplayback?expire=1634408865&ei=QcVqYcvhJI6y4gL765jYBQ&ip=118.191.224.189&id=o-AFJQTxAt6oXd6A4s1T19mcMoPuiDVjVcTBeopaHUDBhL&itag=247&aitags=133%2C134%2C135%2C136%2C137%2C160%2C242%2C243%2C244%2C247%2C248%2C271%2C278%2C313&source=youtube&requiressl=yes&mh=wN&mm=31%2C29&mn=sn-ibj-i3bs%2Csn-i3b7knzl&ms=au%2Crdu&mv=m&mvi=1&pl=24&initcwndbps=221250&vprv=1&mime=video%2Fwebm&ns=wZh3gkXX6wmKWqC-UAi9ZVgG&gir=yes&clen=142564466&dur=657.223&lmt=1554109066450649&mt=1634386869&fvip=1&keepalive=yes&fexp=24001373%2C24007246&c=WEB&txp=2316222&n=QGv30JrybAr39dnIM&sparams=expire%2Cei%2Cip%2Cid%2Caitags%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAPTGLjTMq2adjgMHjy64VT4zPFJ_zyQtj9TU8_RK0R4cAiEA79uwcNrOx4uOmYkZPIjiUirfb5PgGIabZzMQG_B1USk%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhANzhDNrnDbusIznIy941cfT32QqOaYBKb2QebT-lUuKDAiEA1GGxf1hJxABX8WUOGo5bVWG1jzo7LFPP4EXJ1Fx50sk%3D"
+    urllib.request.urlretrieve(url, "sss.webm", reporthook=reporthook)
+    return 'test_request'
 
 @app.route('/test_bf', methods=['GET'])
 def test_bf():
