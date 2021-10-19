@@ -52,7 +52,7 @@ func update_thread(param):
                 "User-Agent: Pirulo/1.0 (Godot)",
                 "Accept: */*"
             ]
-            err = http.request(HTTPClient.METHOD_GET, "/video/"+video_id+"/main.webm", headers) # Request a page from the site (this one was chunked..)
+            err = http.request(HTTPClient.METHOD_GET, "/video/"+video_id+"/main.ogv", headers) # Request a page from the site (this one was chunked..)
             if err != OK:
                 ui_obj.on_update_download_progress("failed")
                 remove_task_from_list(video_id)
@@ -71,9 +71,9 @@ func update_thread(param):
                 var rb = PoolByteArray()
                 var last_rb_size=0
                 cur_downloading_id=video_id
+                stop_download_flag=false
                 while http.get_status() == HTTPClient.STATUS_BODY:
                     if stop_download_flag:
-                        stop_download_flag=false
                         break
                     http.poll()
                     var chunk = http.read_response_body_chunk()
@@ -83,30 +83,35 @@ func update_thread(param):
                         rb = rb + chunk
                         var c_time=OS.get_ticks_msec()
                         if c_time-s_time>1*1000:
-                            var d_rate=str(int((rb.size()-last_rb_size)/(c_time-s_time)*1000/1024))+"K/s"
+                            var raw_speed=(rb.size()-last_rb_size)/(c_time-s_time)*1000
+                            var d_rate=str(int(raw_speed/1024))+"K/s"
                             last_rb_size=rb.size()
                             s_time=c_time
                             if bl>0:
-                                ui_obj.on_update_download_progress(str(int(rb.size()/float(bl)*100))+"%    "+d_rate)
+                                var need_time = (bl-last_rb_size)/raw_speed
+                                var h = int(need_time/3600)
+                                var m = int((need_time-h*3600)/60)
+                                var s = int(need_time-h*3600-m*60)
+                                var time_str=str(h)+":"+str(m)+":"+str(s)
+                                ui_obj.on_update_download_progress(str(int(rb.size()/float(bl)*100))+"%  "+d_rate+"  "+time_str)
                             else:
-                                ui_obj.on_update_download_progress(str(int(last_rb_size/1024/1024))+"M    "+d_rate)
-                var f=File.new()
-                f.open("user://"+cache_folder+video_id+".webm",File.WRITE)
-                f.store_buffer(rb)
-                f.close()
-                ui_obj.on_update_download_progress("downloaded")
+                                ui_obj.on_update_download_progress(str(int(last_rb_size/1024/1024))+"M  "+d_rate)
+                if stop_download_flag==false:
+                    var f=File.new()
+                    var file_addr=cache_folder+video_id+".ogv"
+                    f.open(file_addr,File.WRITE)
+                    f.store_buffer(rb)
+                    f.close()
+                    ui_obj.on_update_download_progress("downloaded")
+                    remove_task_from_list(video_id)
+                else:
+                    ui_obj.on_update_download_progress("canceled")
                 cur_downloading_id=""
             else:
                 ui_obj.on_update_download_progress("failed")
                 remove_task_from_list(video_id)
-                continue
-            ui_obj.on_update_download_progress("Downloaded")
-            remove_task_from_list(video_id)
         else:
             OS.delay_msec(1000)
-            if stop_download_flag:
-                stop_download_flag=false
-
 
 func add_download_task(video_id, ui_obj):
     if video_id in task_list:
@@ -117,8 +122,9 @@ func add_download_task(video_id, ui_obj):
     ui_obj.on_update_download_progress("Pending")
 
 func downloaded(video_id):
+    return "downloaded"
     var file2Check = File.new()
-    var doFileExists = file2Check.file_exists(cache_folder+"video_id"+".webm")
+    var doFileExists = file2Check.file_exists(cache_folder+video_id+".ogv")
     if doFileExists:
         return "downloaded"
     else:
@@ -134,7 +140,7 @@ func rm_download_task(video_id):
         if cur_downloading_id==video_id:
             stop_download_flag=true
     var file2Check = File.new()
-    var temp_addr=cache_folder+"video_id"+".webm"
+    var temp_addr=cache_folder+video_id+".ogv"
     var doFileExists = file2Check.file_exists(temp_addr)
     if doFileExists:
         var dir = Directory.new()
