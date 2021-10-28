@@ -52,7 +52,7 @@ func update_thread(param):
                 "User-Agent: Pirulo/1.0 (Godot)",
                 "Accept: */*"
             ]
-            err = http.request(HTTPClient.METHOD_GET, "/video/"+video_id+"/main.ogv", headers) # Request a page from the site (this one was chunked..)
+            err = http.request(HTTPClient.METHOD_GET, "/video/"+video_id+"/main_c.webm", headers) # Request a page from the site (this one was chunked..)
             if err != OK:
                 ui_obj.on_update_download_progress("failed")
                 remove_task_from_list(video_id)
@@ -98,7 +98,7 @@ func update_thread(param):
                                 ui_obj.on_update_download_progress(str(int(last_rb_size/1024/1024))+"M  "+d_rate)
                 if stop_download_flag==false:
                     var f=File.new()
-                    var file_addr=cache_folder+video_id+".ogv"
+                    var file_addr=cache_folder+video_id+".webm"
                     f.open(file_addr,File.WRITE)
                     f.store_buffer(rb)
                     f.close()
@@ -122,9 +122,8 @@ func add_download_task(video_id, ui_obj):
     ui_obj.on_update_download_progress("Pending")
 
 func downloaded(video_id):
-    return "downloaded"
     var file2Check = File.new()
-    var doFileExists = file2Check.file_exists(cache_folder+video_id+".ogv")
+    var doFileExists = file2Check.file_exists(cache_folder+video_id+".webm")
     if doFileExists:
         return "downloaded"
     else:
@@ -140,7 +139,7 @@ func rm_download_task(video_id):
         if cur_downloading_id==video_id:
             stop_download_flag=true
     var file2Check = File.new()
-    var temp_addr=cache_folder+video_id+".ogv"
+    var temp_addr=cache_folder+video_id+".webm"
     var doFileExists = file2Check.file_exists(temp_addr)
     if doFileExists:
         var dir = Directory.new()

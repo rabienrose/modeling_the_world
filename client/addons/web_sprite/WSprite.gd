@@ -47,7 +47,7 @@ func load_from_disk():
         loaded = img.load(path);
         if loaded == OK: 
             var tex = ImageTexture.new();
-            tex.create_from_image(img);
+            tex.create_from_image(img,0);
             texture = tex; 
             break;
             

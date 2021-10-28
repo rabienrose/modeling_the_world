@@ -51,7 +51,7 @@ def update_download_list():
             video_id = download_list[0]
             cur_video_id=video_id
             ydl_opts = {
-                'format': '247',
+                'format': '22',
                 'logger': MyLogger(),
                 'progress_hooks': [my_hook],
                 'outtmpl': "temp.webm"
@@ -59,17 +59,21 @@ def update_download_list():
             if os.path.exists("temp.webm.part"):
                 os.remove("temp.webm.part")
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                global progress_update_step
-                progress_update_step=0
-                ydl.extract_info('https://www.youtube.com/watch?v='+video_id,download=True)
-                bucket.put_object_from_file("video/"+video_id+"/main.webm","temp.webm",progress_callback=percentage)
-                db =myclient["model_world"]
-                video_col=db["videos"]  
-                progress_update_step=0
-                video_col.update_one({"id":video_id},{"$set":{"status":"done"}})
-                os.remove("temp.webm")
-                with mutex:
-                    download_list.remove(video_id)
+                try:
+                    global progress_update_step
+                    progress_update_step=0
+                    ydl.extract_info('https://www.youtube.com/watch?v='+video_id,download=True)
+                    video_col.update_one({"id":video_id},{"$set":{"status":"convert_format"}})
+                    bucket.put_object_from_file("video/"+video_id+"/main.webm","temp.webm",progress_callback=percentage)
+                    db =myclient["model_world"]
+                    video_col=db["videos"]  
+                    video_col.update_one({"id":video_id},{"$set":{"status":"done"}})
+                    os.remove("temp.webm")
+                    with mutex:
+                        download_list.remove(video_id)
+                except Exception:
+                    print("download error!!!")
+                    time.sleep(60)
         else:
             time.sleep(1)
 
@@ -114,34 +118,39 @@ def download_google_video():
 def new_google_video():
     video_id = request.values.get("video_id")
     with youtube_dl.YoutubeDL({}) as ydl:
-        result = ydl.extract_info('https://www.youtube.com/watch?v='+video_id,download=False)
-        video_info={}
-        video_info["dislike_count"]=result["dislike_count"]
-        video_info["title"]=result["title"]
-        video_info["upload_date"]=result["upload_date"]
-        video_info["uploader"]=result["uploader"]
-        video_info["uploader_id"]=result["uploader_id"]
-        video_info["view_count"]=result["view_count"]
-        video_info["webpage_url"]=result["webpage_url"]
-        video_info["id"]=result["id"]
-        video_info["like_count"]=result["like_count"]
-        video_info["duration"]=result["duration"]
-        video_info["description"]=result["description"]
-        video_info["tags"]=result["tags"]
-        video_info["thumbnail"]=result["thumbnail"]
-        video_info["formats"]=[]
-        for f in result["formats"]:
-            f_info={}
-            f_info["format"]=f["format"]
-            f_info["fps"]=f["fps"]
-            f_info["quality"]=f["quality"]
-            f_info["filesize"]=f["filesize"]
-            video_info["formats"].append(f_info)
-        response = requests.get(video_info["thumbnail"])
-        bucket.put_object("thumbnail/"+video_id+"/main.jpg",response.content)
-        db =myclient["model_world"]
-        video_col=db["videos"]  
-        video_col.update_one({"id":video_id},{"$set":video_info},upsert=True)
+        try:
+            result = ydl.extract_info('https://www.youtube.com/watch?v='+video_id,download=False)
+            video_info={}
+            video_info["dislike_count"]=result["dislike_count"]
+            video_info["title"]=result["title"]
+            video_info["upload_date"]=result["upload_date"]
+            video_info["uploader"]=result["uploader"]
+            video_info["uploader_id"]=result["uploader_id"]
+            video_info["view_count"]=result["view_count"]
+            video_info["webpage_url"]=result["webpage_url"]
+            video_info["id"]=result["id"]
+            video_info["like_count"]=result["like_count"]
+            video_info["duration"]=result["duration"]
+            video_info["description"]=result["description"]
+            video_info["tags"]=result["tags"]
+            video_info["thumbnail"]=result["thumbnail"]
+            video_info["formats"]=[]
+            for f in result["formats"]:
+                f_info={}
+                f_info["format"]=f["format"]
+                f_info["fps"]=f["fps"]
+                f_info["quality"]=f["quality"]
+                f_info["filesize"]=f["filesize"]
+                video_info["formats"].append(f_info)
+            response = requests.get(video_info["thumbnail"])
+            bucket.put_object("thumbnail/"+video_id+"/main.jpg",response.content)
+            db =myclient["model_world"]
+            video_col=db["videos"]  
+            video_col.update_one({"id":video_id},{"$set":video_info},upsert=True)
+        except Exception:
+            print("fetch info error!!!")
+            time.sleep(60)
+            return json.dumps(['fail_fetch_info'])
     return json.dumps(['ok'])
 
 @app.route('/test_mongodb', methods=['GET'])

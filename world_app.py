@@ -2,8 +2,6 @@ from __future__ import unicode_literals
 from flask import Flask
 from flask import request
 import sys
-import requests
-from bs4 import BeautifulSoup
 import json
 import pymongo
 import pprint

@@ -1,14 +1,19 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://addons/web_sprite/WSprite.gd" type="Script" id=1]
 [ext_resource path="res://binary/font/NotoSansSC-Regular.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://binary/icon/EM_141.png" type="Texture" id=3]
 [ext_resource path="res://binary/icon/EM_136.png" type="Texture" id=4]
 [ext_resource path="res://ui_video_item.gd" type="Script" id=5]
-[ext_resource path="res://res/chinese_font.tres" type="Theme" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 20
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 2 )
 
 [node name="video_item" type="Panel"]
@@ -36,12 +41,12 @@ __meta__ = {
 }
 
 [node name="country" type="Label" parent="."]
-margin_left = 265.0
-margin_top = 72.0
-margin_right = 348.0
-margin_bottom = 96.0
+margin_left = 267.997
+margin_top = 70.5017
+margin_right = 350.997
+margin_bottom = 94.5017
 mouse_filter = 1
-theme = ExtResource( 6 )
+custom_fonts/font = SubResource( 2 )
 text = "日本"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -96,12 +101,12 @@ __meta__ = {
 }
 
 [node name="location" type="Label" parent="."]
-margin_left = 266.737
-margin_top = 93.473
-margin_right = 346.737
-margin_bottom = 117.473
+margin_left = 268.984
+margin_top = 94.2221
+margin_right = 348.984
+margin_bottom = 118.222
 mouse_filter = 1
-theme = ExtResource( 6 )
+custom_fonts/font = SubResource( 3 )
 text = "新宿"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -138,6 +143,7 @@ margin_top = 16.0
 margin_right = 652.0
 margin_bottom = 376.0
 rect_scale = Vector2( 0.36, 0.36 )
+expand = true
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

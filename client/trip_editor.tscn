@@ -1,0 +1,246 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://trip_editor.gd" type="Script" id=1]
+[ext_resource path="res://map.tscn" type="PackedScene" id=2]
+[ext_resource path="res://binary/icon/EM_113.png" type="Texture" id=3]
+[ext_resource path="res://binary/icon/EM_112.png" type="Texture" id=4]
+[ext_resource path="res://binary/icon/SI_9264.png" type="Texture" id=5]
+[ext_resource path="res://binary/icon/SI_10502.png" type="Texture" id=6]
+[ext_resource path="res://binary/icon/EM_141.png" type="Texture" id=7]
+[ext_resource path="res://binary/icon/EM_153.png" type="Texture" id=8]
+[ext_resource path="res://binary/icon/EM_140.png" type="Texture" id=9]
+[ext_resource path="res://binary/icon/EM_138.png" type="Texture" id=10]
+
+[sub_resource type="ViewportTexture" id=1]
+viewport_path = NodePath("map/Viewport")
+
+[node name="editor" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+play_tex = ExtResource( 4 )
+stop_tex = ExtResource( 3 )
+
+[node name="video" type="VideoPlayer" parent="."]
+margin_right = 1200.0
+margin_bottom = 675.0
+rect_min_size = Vector2( 1200, 675 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="map" type="TextureRect" parent="."]
+margin_top = 679.0
+margin_right = 1200.0
+margin_bottom = 1879.0
+rect_min_size = Vector2( 1200, 1200 )
+texture = SubResource( 1 )
+flip_v = true
+
+[node name="Viewport" type="Viewport" parent="map"]
+size = Vector2( 1200, 1200 )
+
+[node name="map" parent="map/Viewport" instance=ExtResource( 2 )]
+
+[node name="Control" type="VBoxContainer" parent="."]
+margin_top = 1883.0
+margin_right = 1200.0
+margin_bottom = 2592.0
+size_flags_vertical = 3
+
+[node name="video_slider" type="Panel" parent="Control"]
+margin_right = 1200.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 0, 300 )
+
+[node name="GridContainer" type="GridContainer" parent="Control"]
+margin_top = 304.0
+margin_right = 1200.0
+margin_bottom = 709.0
+size_flags_vertical = 3
+columns = 6
+
+[node name="play" type="TextureButton" parent="Control/GridContainer"]
+margin_left = 28.0
+margin_top = 30.0
+margin_right = 168.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 140, 140 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn" type="TextureButton" parent="Control/GridContainer"]
+margin_left = 228.0
+margin_top = 30.0
+margin_right = 368.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 140, 140 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn2" type="TextureButton" parent="Control/GridContainer"]
+margin_left = 428.0
+margin_top = 30.0
+margin_right = 568.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 140, 140 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="save" type="TextureButton" parent="Control/GridContainer"]
+margin_left = 628.0
+margin_top = 30.0
+margin_right = 768.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 140, 140 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource( 8 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time_in" type="TextureButton" parent="Control/GridContainer"]
+margin_left = 828.0
+margin_top = 30.0
+margin_right = 968.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 140, 140 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="zoom_in" type="TextureButton" parent="Control/GridContainer"]
+margin_left = 1028.0
+margin_top = 30.0
+margin_right = 1168.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 140, 140 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="exit" type="TextureButton" parent="Control/GridContainer"]
+margin_left = 28.0
+margin_top = 234.0
+margin_right = 168.0
+margin_bottom = 374.0
+rect_min_size = Vector2( 140, 140 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource( 10 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn7" type="TextureButton" parent="Control/GridContainer"]
+margin_left = 228.0
+margin_top = 234.0
+margin_right = 368.0
+margin_bottom = 374.0
+rect_min_size = Vector2( 140, 140 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn8" type="TextureButton" parent="Control/GridContainer"]
+margin_left = 428.0
+margin_top = 234.0
+margin_right = 568.0
+margin_bottom = 374.0
+rect_min_size = Vector2( 140, 140 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn9" type="TextureButton" parent="Control/GridContainer"]
+margin_left = 628.0
+margin_top = 234.0
+margin_right = 768.0
+margin_bottom = 374.0
+rect_min_size = Vector2( 140, 140 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time_out" type="TextureButton" parent="Control/GridContainer"]
+margin_left = 828.0
+margin_top = 234.0
+margin_right = 968.0
+margin_bottom = 374.0
+rect_min_size = Vector2( 140, 140 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="zoom_out" type="TextureButton" parent="Control/GridContainer"]
+margin_left = 1028.0
+margin_top = 234.0
+margin_right = 1168.0
+margin_bottom = 374.0
+rect_min_size = Vector2( 140, 140 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="gui_input" from="map" to="." method="_on_map_gui_input"]
+[connection signal="gui_input" from="Control/video_slider" to="." method="_on_video_slider_gui_input"]
+[connection signal="button_down" from="Control/GridContainer/play" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="Control/GridContainer/btn" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="Control/GridContainer/btn2" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="Control/GridContainer/save" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="Control/GridContainer/time_in" to="." method="_on_time_in_button_down"]
+[connection signal="button_down" from="Control/GridContainer/zoom_in" to="." method="_on_zoom_in_button_down"]
+[connection signal="button_down" from="Control/GridContainer/btn7" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="Control/GridContainer/btn8" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="Control/GridContainer/btn9" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="Control/GridContainer/time_out" to="." method="_on_time_out_button_down"]
+[connection signal="button_down" from="Control/GridContainer/zoom_out" to="." method="_on_zoom_out_button_down"]

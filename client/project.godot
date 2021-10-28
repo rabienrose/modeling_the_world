@@ -11,16 +11,17 @@ config_version=4
 [application]
 
 config/name="model_world"
-run/main_scene="res://ui_root.tscn"
+run/main_scene="res://trip_editor.tscn"
 config/icon="res://icon.png"
 
 [display]
 
-window/size/width=500
-window/size/height=800
-window/handheld/orientation="portrait"
+window/size/width=1200
+window/size/height=2592
+window/size/test_width=400
+window/size/test_height=864
 window/stretch/mode="2d"
-window/stretch/aspect="keep_height"
+window/stretch/aspect="keep"
 
 [editor_plugins]
 
