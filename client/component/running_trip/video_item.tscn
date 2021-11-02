@@ -1,0 +1,271 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://addons/web_sprite/WSprite.gd" type="Script" id=1]
+[ext_resource path="res://binary/font/NotoSansSC-Regular.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://binary/icon/EM_141.png" type="Texture" id=3]
+[ext_resource path="res://binary/icon/EM_136.png" type="Texture" id=4]
+[ext_resource path="res://component/running_trip/video_item.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+extra_spacing_top = 10
+extra_spacing_bottom = 20
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+extra_spacing_bottom = 10
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+extra_spacing_bottom = 10
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 30
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 30
+font_data = ExtResource( 2 )
+
+[node name="video_item" type="Panel"]
+margin_right = 500.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 1200, 396 )
+mouse_filter = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cover" type="TextureRect" parent="HBoxContainer"]
+margin_right = 693.0
+margin_bottom = 376.0
+rect_min_size = Vector2( 693, 0 )
+expand = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+type = 1
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+margin_left = 697.0
+margin_right = 717.0
+margin_bottom = 376.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 721.0
+margin_right = 1180.0
+margin_bottom = 376.0
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="HBoxContainer/VBoxContainer"]
+margin_right = 459.0
+margin_bottom = 103.0
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "漫步东京"
+align = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 107.0
+margin_right = 459.0
+margin_bottom = 161.0
+
+[node name="country" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_right = 227.0
+margin_bottom = 54.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "日本"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="location" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 231.0
+margin_right = 459.0
+margin_bottom = 54.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 3 )
+text = "新宿"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 165.0
+margin_right = 459.0
+margin_bottom = 209.0
+
+[node name="upload_date" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 150.0
+margin_bottom = 44.0
+rect_pivot_offset = Vector2( 77.9768, 13.4919 )
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 4 )
+text = "21/09/10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="duration" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 154.0
+margin_right = 304.0
+margin_bottom = 44.0
+rect_pivot_offset = Vector2( 77.9768, 13.4919 )
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 4 )
+text = "1:60"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="file_size" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 308.0
+margin_right = 459.0
+margin_bottom = 44.0
+rect_pivot_offset = Vector2( 77.9768, 13.4919 )
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 4 )
+text = "1.3G"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 213.0
+margin_right = 459.0
+margin_bottom = 307.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 30
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MarginContainer"]
+margin_top = 30.0
+margin_right = 459.0
+margin_bottom = 94.0
+
+[node name="rm_download" type="TextureButton" parent="HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer3"]
+margin_left = 12.0
+margin_right = 76.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+mouse_filter = 1
+size_flags_horizontal = 6
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn1" type="TextureButton" parent="HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer3"]
+margin_left = 104.0
+margin_right = 168.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+mouse_filter = 1
+size_flags_horizontal = 6
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn2" type="TextureButton" parent="HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer3"]
+margin_left = 197.0
+margin_right = 261.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+mouse_filter = 1
+size_flags_horizontal = 6
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn3" type="TextureButton" parent="HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer3"]
+margin_left = 289.0
+margin_right = 353.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+mouse_filter = 1
+size_flags_horizontal = 6
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn4" type="TextureButton" parent="HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer3"]
+margin_left = 382.0
+margin_right = 446.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+mouse_filter = 1
+size_flags_horizontal = 6
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="download_info" type="Label" parent="HBoxContainer/VBoxContainer"]
+margin_top = 321.0
+margin_right = 459.0
+margin_bottom = 365.0
+rect_pivot_offset = Vector2( 77.9768, 13.4919 )
+mouse_filter = 1
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 5 )
+text = "13% 567K/s"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="watched" type="TextureButton" parent="HBoxContainer/VBoxContainer"]
+visible = false
+margin_left = 453.055
+margin_top = 122.562
+margin_right = 485.055
+margin_bottom = 154.562
+rect_scale = Vector2( 0.8, 0.8 )
+mouse_filter = 1
+texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="gui_input" from="HBoxContainer/cover" to="." method="_on_cover_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/VBoxContainer/HBoxContainer2/duration" to="." method="_on_duration_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/VBoxContainer/HBoxContainer2/file_size" to="." method="_on_duration_gui_input"]
+[connection signal="button_down" from="HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer3/rm_download" to="." method="_on_rm_download_button_down"]
+[connection signal="button_down" from="HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer3/btn1" to="." method="_on_rm_download_button_down"]
+[connection signal="button_down" from="HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer3/btn2" to="." method="_on_rm_download_button_down"]
+[connection signal="button_down" from="HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer3/btn3" to="." method="_on_rm_download_button_down"]
+[connection signal="button_down" from="HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer3/btn4" to="." method="_on_rm_download_button_down"]

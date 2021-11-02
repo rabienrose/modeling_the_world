@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://component/avatar_editor/color_marker.gd" type="Script" id=1]
+[ext_resource path="res://binary/icon/dot_highlight.png" type="Texture" id=2]
+[ext_resource path="res://binary/icon/dot_normal.png" type="Texture" id=3]
+
+[node name="color_marker" type="Sprite"]
+texture = ExtResource( 3 )
+script = ExtResource( 1 )
+dot_tex = ExtResource( 3 )
+dot_h_tex = ExtResource( 2 )

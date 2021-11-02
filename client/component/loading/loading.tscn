@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://component/loading/loading.gd" type="Script" id=1]
+[ext_resource path="res://component/login/login.tscn" type="PackedScene" id=2]
+[ext_resource path="res://component/avatar_editor/avatar_list.tscn" type="PackedScene" id=3]
+
+[node name="loading" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+login_scene = ExtResource( 2 )
+main_scene = ExtResource( 3 )

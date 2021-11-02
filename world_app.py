@@ -16,6 +16,32 @@ mutex = Lock()
 app = Flask(__name__)
 
 
+@app.route('/login', methods=['POST'])
+def login():
+    account = request.form.get('account')
+    password = request.form.get('password')
+    col = myclient["model_world"]["user"]
+    re = col.find_one({"account":account})
+    if re is None:
+        return json.dumps({"err":"account_not_exist"})
+    if re["password"]!=password:
+        return json.dumps({"err":"password_not_right"})
+    return json.dumps({"token":str(re["_id"])})
+
+@app.route('/query_subject_list', methods=['GET'])
+def query_subject_list():
+    subject_info={}
+    subject_info["title"]=""
+    subject_info["desc"]=""
+    subject_info["id"]=""
+    subject_info["video_count"]=""
+    return json.dumps(subject_info)
+
+
+@app.route('/query_user_info', methods=['GET'])
+def query_user_info():
+    return ""
+
 @app.route('/query_video_list', methods=['GET'])
 def query_video_list():
     db =myclient["model_world"]
@@ -50,5 +76,5 @@ if __name__ == '__main__':
     myclient.server_info()
     app.config['SECRET_KEY'] = 'xxx'
     app.config['UPLOAD_FOLDER'] = './raw'
-    app.debug = False
+    app.debug = True
     app.run('0.0.0.0', port=sys.argv[1])

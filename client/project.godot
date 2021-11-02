@@ -11,8 +11,12 @@ config_version=4
 [application]
 
 config/name="model_world"
-run/main_scene="res://trip_editor.tscn"
+run/main_scene="res://component/loading/loading.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://global/global.gd"
 
 [display]
 

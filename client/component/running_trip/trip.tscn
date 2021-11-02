@@ -1,20 +1,20 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://download_mgr.gd" type="Script" id=1]
-[ext_resource path="res://ui_root.gd" type="Script" id=3]
+[ext_resource path="res://component/running_trip/trip.gd" type="Script" id=1]
+[ext_resource path="res://component/running_trip/download_mgr.gd" type="Script" id=2]
 
 [node name="ui_root" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 1
-script = ExtResource( 3 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 500.0
 mouse_filter = 1
 scroll_horizontal_enabled = false
 __meta__ = {
@@ -22,6 +22,8 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 1200.0
+size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -29,4 +31,4 @@ __meta__ = {
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="download_mgr" type="Node2D" parent="."]
-script = ExtResource( 1 )
+script = ExtResource( 2 )

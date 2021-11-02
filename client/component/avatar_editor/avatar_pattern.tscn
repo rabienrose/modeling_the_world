@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://binary/avatar/4_0.png" type="Texture" id=1]
+[ext_resource path="res://component/avatar_editor/color_marker.tscn" type="PackedScene" id=2]
+[ext_resource path="res://component/avatar_editor/avatar_pattern.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+
+[node name="root" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+color_marker_path = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 1200.0
+margin_bottom = 1200.0
+rect_min_size = Vector2( 1200, 1200 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="avatar" type="TextureRect" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="color_bar" type="TextureRect" parent="."]
+margin_top = 1204.0
+margin_right = 1200.0
+margin_bottom = 1254.0
+rect_min_size = Vector2( 0, 50 )
+expand = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_top = 1258.0
+margin_right = 1200.0
+margin_bottom = 2592.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="color_list" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 1200.0
+size_flags_horizontal = 3

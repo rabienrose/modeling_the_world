@@ -14,8 +14,6 @@ onready var http  = HTTPRequest.new();
 func _ready():
     add_child(http);
     http.connect("request_completed",self,"_completed");
-    if autoLoad:
-        loadTexture();
     
 func loadTexture(url =""):
     if url != "":
@@ -26,6 +24,7 @@ func loadTexture(url =""):
         load_from_url();
 
 func load_from_url():
+    print(url)
     if url=="":
         printerr("url is not valid : %s"%self.url);
     else :
