@@ -15,11 +15,24 @@ import os
 mutex = Lock()
 app = Flask(__name__)
 
+@app.route('/regist', methods=['POST'])
+def regist():
+    req_data = request.get_json()
+    account=req_data["account"]
+    password=req_data["password"]
+    col = myclient["model_world"]["user"]
+    re = col.find_one({"account":account})
+    if re is not None:
+        return json.dumps({"err":"account_exist"})
+    re = col.insert_one({"account":account,"password":password})
+    return json.dumps({"token":str(re.inserted_id)})
 
 @app.route('/login', methods=['POST'])
 def login():
-    account = request.form.get('account')
-    password = request.form.get('password')
+    req_data = request.get_json()
+    print(req_data)
+    account=req_data["account"]
+    password=req_data["password"]
     col = myclient["model_world"]["user"]
     re = col.find_one({"account":account})
     if re is None:

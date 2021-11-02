@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://component/login/login.gd" type="Script" id=1]
 [ext_resource path="res://common_res/font_normal_30.tres" type="DynamicFont" id=2]
+[ext_resource path="res://component/popup/alert.tscn" type="PackedScene" id=3]
+[ext_resource path="res://component/avatar_editor/avatar_list.tscn" type="PackedScene" id=4]
 
 [node name="login" type="Control"]
 anchor_right = 1.0
@@ -10,6 +12,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+main_scene = ExtResource( 4 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
@@ -45,6 +48,7 @@ margin_left = 312.0
 margin_right = 912.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 600, 100 )
+custom_fonts/font = ExtResource( 2 )
 
 [node name="Label_pw" type="Label" parent="CenterContainer/VBoxContainer/GridContainer"]
 margin_top = 136.0
@@ -89,6 +93,8 @@ rect_min_size = Vector2( 400, 100 )
 size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 2 )
 text = "LOGIN"
+
+[node name="alert" parent="." instance=ExtResource( 3 )]
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://component/popup/alert.gd" type="Script" id=1]
+[ext_resource path="res://common_res/font_normal_30.tres" type="DynamicFont" id=2]
+
+[node name="alert" type="AcceptDialog"]
+margin_right = 600.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 600, 250 )
+window_title = ""
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+font_res = ExtResource( 2 )
