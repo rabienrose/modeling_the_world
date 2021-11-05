@@ -11,9 +11,57 @@ import threading
 import time
 from threading import Thread, Lock
 import os
+from flask import send_file
+import io
+from struct import *
+import gzip
+import zlib
 
 mutex = Lock()
 app = Flask(__name__)
+
+pattern_folder="/home/rabienrose/Documents/code/modeling_the_world/test_imgs/"
+
+@app.route('/update_pattern', methods=['POST'])
+def update_pattern():
+    post_data = request.json
+    pattern_name=post_data["name"]
+    pattern_info=post_data["info"]
+    print(pattern_info)
+    json_file=pattern_folder+"/"+pattern_name+"/pattern.json"
+    f=open(json_file,"w")
+    f.write(pattern_info)
+    f.close()
+    return json.dumps({"re":"ok"})
+
+@app.route('/update_avatar_data', methods=['POST'])
+def update_avatar_data():
+    pass
+
+@app.route('/get_pattern', methods=['GET'])
+def get_pattern():
+    pattern_name = request.values.get("pattern_name")
+    json_file=pattern_folder+"/"+pattern_name+"/pattern.json"
+    f_json = open(json_file,"rb")
+    json_buf=f_json.read()
+    json_zip = gzip.compress(json_buf)
+    file_name=pattern_folder+"/"+pattern_name+"/raw.png"
+    f_png = open(file_name,"rb")
+    png_buf=f_png.read()
+    png_len_bytes = pack('I', len(png_buf))
+    json_len_bytes = pack('I', len(json_buf))
+    
+    mem = io.BytesIO()
+    mem.write(png_len_bytes)
+    mem.write(json_len_bytes)
+    mem.write(png_buf)
+    mem.write(json_zip)
+    mem.seek(0)
+    return send_file(mem,mimetype='application/octet-stream')
+
+@app.route('/get_avatar_data', methods=['GET'])
+def get_avatar_data():
+    pass
 
 @app.route('/regist', methods=['POST'])
 def regist():
@@ -30,7 +78,6 @@ def regist():
 @app.route('/login', methods=['POST'])
 def login():
     req_data = request.get_json()
-    print(req_data)
     account=req_data["account"]
     password=req_data["password"]
     col = myclient["model_world"]["user"]

@@ -24,7 +24,6 @@ func loadTexture(url =""):
         load_from_url();
 
 func load_from_url():
-    print(url)
     if url=="":
         printerr("url is not valid : %s"%self.url);
     else :

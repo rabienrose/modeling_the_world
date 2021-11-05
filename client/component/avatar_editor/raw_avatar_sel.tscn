@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://component/avatar_editor/raw_avatar_sel.gd" type="Script" id=1]
+
+[sub_resource type="AtlasTexture" id=1]
+
+[node name="raw_sel" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+grid_avatar_path = null
+
+[node name="avatar_grid" type="GridContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="avatar_grid"]
+texture = SubResource( 1 )
